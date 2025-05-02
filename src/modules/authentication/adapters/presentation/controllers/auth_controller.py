@@ -4,7 +4,7 @@ from fastapi import HTTPException
 from modules.authentication.adapters.dtos import RequestAnonymousLogin, RequestLogin
 from dependency_injector.wiring import inject
 
-from modules.infra.dependency_injector.containers import AuthenticationContainer
+from modules.shared.infra.dependency_injector.containers import AuthenticationContainer
 from modules.shared.adapters.presentation.decorators import (
     FastAPIManager,
     ControllerOptions,

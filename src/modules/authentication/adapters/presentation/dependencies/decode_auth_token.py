@@ -1,7 +1,7 @@
 from fastapi import HTTPException, Request
 
 from modules.authentication.adapters.dtos import AuthTokenData
-from modules.infra.dependency_injector.containers import AuthenticationContainer
+from modules.shared.infra.dependency_injector.containers import AuthenticationContainer
 
 
 async def decode_auth_token(request: Request) -> AuthTokenData:
