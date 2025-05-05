@@ -1,8 +1,10 @@
 from typing import Optional
-from pydantic import BaseModel
+from gomongo.ports import GoEntity
+from gomongo.decorators import GoCollection
 
 
-class User(BaseModel):
+@GoCollection("users")
+class User(GoEntity):
     id: Optional[int] = None
     name: str
     document: Optional[str] = None

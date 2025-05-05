@@ -4,19 +4,19 @@ from fastapi import HTTPException
 from modules.authentication.adapters.dtos import RequestAnonymousLogin, RequestLogin
 from dependency_injector.wiring import inject
 
-from modules.shared.infra.dependency_injector.containers import AuthenticationContainer
 from modules.shared.adapters.presentation.decorators import (
     FastAPIManager,
     ControllerOptions,
     APIController,
 )
+from modules.shared.infra.dependency_injector.containers.core_container import CoreContainer
 
 
 @FastAPIManager.controller("auth", ControllerOptions(tags="Authentication"))
 class AuthController(APIController):
     @inject
     def __init__(self):
-        self.__authenticate_use_case = AuthenticationContainer.authenticate_use_case()
+        self.__authenticate_use_case = CoreContainer.authenticate_use_case()
         super().__init__()
 
     @FastAPIManager.route(

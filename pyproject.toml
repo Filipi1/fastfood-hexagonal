@@ -4,12 +4,13 @@ version = "0.1.0"
 description = "Uma api de fastfood para estudar arquitetura hexagonal modular"
 readme = "README.md"
 authors = [
-    { name="Filipe Braga", email="developer@prokicon.com" }
+    { name="Filipe Braga", email="developer@prokicon.com.br" }
 ]
 requires-python = ">=3.12"
 dependencies = [
     "dependency-injector>=4.46.0",
     "fastapi[all]>=0.115.12",
+    "gomongo",
     "passlib[bcrypt]>=1.7.4",
     "python-dotenv>=1.1.0",
     "python-jose[cryptography]>=3.4.0",
@@ -28,4 +29,7 @@ lint = "ruff check src"
 fix = "ruff check src --fix && black src"
 typecheck = "pyright src"
 run_dev = "fastapi dev src/main.py"
+
+[tool.uv.sources]
+gomongo = { git = "https://github.com/Filipi1/gomongo" }
 
