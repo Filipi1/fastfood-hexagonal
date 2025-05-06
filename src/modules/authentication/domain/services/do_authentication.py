@@ -1,6 +1,6 @@
 import hashlib
 from typing import Optional
-from modules.authentication.adapters.dtos import RequestLogin
+from modules.authentication.application.dtos import RequestLogin
 from modules.authentication.adapters.security.jwt.jwt_service import JWTService
 from modules.shared.domain.interfaces import DomainService
 from modules.user.domain.services.get_user_by_email_and_password import (

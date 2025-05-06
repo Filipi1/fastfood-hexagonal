@@ -1,5 +1,5 @@
 from typing import Optional
-from modules.authentication.adapters.dtos import RequestAnonymousLogin
+from modules.authentication.application.dtos import RequestAnonymousLogin
 from modules.authentication.adapters.security.jwt.jwt_service import JWTService
 from modules.authentication.domain.entities import Authentication
 from modules.shared.domain.interfaces import DomainService

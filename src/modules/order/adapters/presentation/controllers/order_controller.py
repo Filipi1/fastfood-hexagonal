@@ -3,7 +3,7 @@ import uuid
 
 from fastapi import Depends
 from modules.authentication.adapters.presentation.dependencies import decode_auth_token
-from modules.order.adapters.dtos.request_completion import RequestOrderCompletion
+from modules.order.application.dtos.request_completion import RequestOrderCompletion
 from modules.shared.adapters.presentation.decorators import (
     FastAPIManager,
     ControllerOptions,

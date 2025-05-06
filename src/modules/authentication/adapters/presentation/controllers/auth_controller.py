@@ -1,7 +1,7 @@
 from http import HTTPMethod, HTTPStatus
 
 from fastapi import HTTPException
-from modules.authentication.adapters.dtos import RequestAnonymousLogin, RequestLogin
+from modules.authentication.application.dtos import RequestAnonymousLogin, RequestLogin
 from dependency_injector.wiring import inject
 
 from modules.shared.adapters.presentation.decorators import (

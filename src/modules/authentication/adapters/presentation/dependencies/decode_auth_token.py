@@ -1,6 +1,6 @@
 from fastapi import HTTPException, Request
 
-from modules.authentication.adapters.dtos import AuthTokenData
+from modules.authentication.application.dtos import AuthTokenData
 from modules.shared.infra.dependency_injector.containers.core_container import (
     CoreContainer,
 )
