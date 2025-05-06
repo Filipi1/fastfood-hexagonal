@@ -3,12 +3,24 @@ from dependency_injector.containers import DeclarativeContainer
 from gomongo import GoDatabase
 
 from modules.authentication.adapters.security.jwt.jwt_service import JWTService
-from modules.authentication.application.use_cases.authenticate import AuthenticateUseCase
-from modules.authentication.domain.services.do_anonymous_authentication import DoAnonymousAuthenticationService
-from modules.authentication.domain.services.do_authentication import DoAuthenticationService
+from modules.authentication.application.use_cases.authenticate import (
+    AuthenticateUseCase,
+)
+from modules.authentication.domain.services.do_anonymous_authentication import (
+    DoAnonymousAuthenticationService,
+)
+from modules.authentication.domain.services.do_authentication import (
+    DoAuthenticationService,
+)
+from modules.products.application.use_cases.create_product import CreateProductUseCase
+from modules.products.application.use_cases.get_product import GetProductUseCase
+from modules.products.domain.repositories.product_repository import ProductRepository
+from modules.products.domain.services.add_product_service import AddProductService
+from modules.products.domain.services.get_product_service import GetProductService
 from modules.user.domain.repositories.user_repository import UserRepository
-from modules.user.domain.services.get_user_by_email_and_password import GetUserByEmailAndPasswordService
-
+from modules.user.domain.services.get_user_by_email_and_password import (
+    GetUserByEmailAndPasswordService,
+)
 
 
 class CoreContainer(DeclarativeContainer):
@@ -65,3 +77,23 @@ class CoreContainer(DeclarativeContainer):
         do_authentication_service=do_authentication_service,
     )
 
+    product_repository = providers.Singleton(
+        ProductRepository,
+        database=mongo_database,
+    )
+    add_product_service = providers.Singleton(
+        AddProductService,
+        product_repository=product_repository,
+    )
+    create_product_use_case = providers.Singleton(
+        CreateProductUseCase,
+        add_product_service=add_product_service,
+    )
+    get_product_service = providers.Singleton(
+        GetProductService,
+        product_repository=product_repository,
+    )
+    get_product_use_case = providers.Singleton(
+        GetProductUseCase,
+        get_product_service=get_product_service,
+    )

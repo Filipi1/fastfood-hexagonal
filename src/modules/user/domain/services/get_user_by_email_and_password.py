@@ -9,5 +9,6 @@ class GetUserByEmailAndPasswordService(DomainService):
         self.user_repository = user_repository
 
     async def execute(self, email: str, password: str) -> Optional[User]:
-        return await self.user_repository.get_user_by_email_and_password(email, password)
-
+        return await self.user_repository.get_user_by_email_and_password(
+            email, password
+        )

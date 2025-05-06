@@ -1,7 +1,10 @@
 from fastapi import HTTPException, Request
 
 from modules.authentication.adapters.dtos import AuthTokenData
-from modules.shared.infra.dependency_injector.containers.core_container import CoreContainer
+from modules.shared.infra.dependency_injector.containers.core_container import (
+    CoreContainer,
+)
+
 
 async def decode_auth_token(request: Request) -> AuthTokenData:
     token = request.headers.get("Authorization")

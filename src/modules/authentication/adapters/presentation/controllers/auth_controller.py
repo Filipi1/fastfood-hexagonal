@@ -9,7 +9,9 @@ from modules.shared.adapters.presentation.decorators import (
     ControllerOptions,
     APIController,
 )
-from modules.shared.infra.dependency_injector.containers.core_container import CoreContainer
+from modules.shared.infra.dependency_injector.containers.core_container import (
+    CoreContainer,
+)
 
 
 @FastAPIManager.controller("auth", ControllerOptions(tags="Authentication"))

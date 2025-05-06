@@ -10,4 +10,3 @@ class GetUserByIdUseCase(UseCase):
 
     async def execute(self, user_id: int) -> Optional[User]:
         return await self.user_repository.get_user_by_id(user_id)
-
