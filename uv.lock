@@ -348,7 +348,7 @@ dev = [
 [[package]]
 name = "gomongo"
 version = "0.0.1"
-source = { git = "https://github.com/Filipi1/gomongo#4f86059d72b0d2663d571bab559146c0582f25ac" }
+source = { git = "https://github.com/Filipi1/gomongo#d3ed95702e853aad255adfc11fb1b0ae3d39b148" }
 dependencies = [
     { name = "motor" },
     { name = "pydantic" },

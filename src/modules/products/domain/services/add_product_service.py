@@ -8,7 +8,7 @@ class AddProductService(DomainService):
         self.product_repository = product_repository
 
     async def execute(self, product: ProductEntity) -> ProductEntity:
-        if not product.validate():
+        if not product.validate_product():
             raise ValueError("Product is not valid")
 
         product_by_code = await self.product_repository.get_product_by_code(
@@ -16,5 +16,9 @@ class AddProductService(DomainService):
         )
         if product_by_code:
             raise ValueError("Product already exists")
+        
+        added_product = await self.product_repository.add_product(product)
+        if not added_product:
+            raise ValueError("Failed to add product")
 
-        return await self.product_repository.add_product(product)
+        return added_product

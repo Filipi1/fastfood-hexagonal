@@ -9,13 +9,15 @@ from gomongo.decorators import GoCollection
 class ProductEntity(GoEntity):
     code: str
     name: str
+    image: Optional[str] = None
     price: float
+    category_id: str
     discount: float = Field(default=0)
     active: bool = Field(default=True)
     created_at: Optional[datetime] = Field(default_factory=datetime.now)
     updated_at: Optional[List[Dict]] = Field(default=[])
 
-    def validate(self) -> bool:
+    def validate_product(self) -> bool:
         if self.code is None or self.name is None or self.price is None:
             return False
 

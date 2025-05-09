@@ -18,6 +18,9 @@ class ProductController(APIController):
     def __init__(self):
         self.__create_product_use_case = CoreContainer.create_product_use_case()
         self.__get_product_use_case = CoreContainer.get_product_use_case()
+        self.__get_product_by_category_use_case = (
+            CoreContainer.get_product_by_category_use_case()
+        )
         super().__init__()
 
     @FastAPIManager.route(
@@ -36,3 +39,11 @@ class ProductController(APIController):
     )
     async def get(self, code: str):
         return await self.__get_product_use_case.process(code)
+
+    @FastAPIManager.route(
+        "/category/{id}",
+        method=HTTPMethod.GET,
+        dependencies=[Depends(decode_auth_token)],
+    )
+    async def get_by_category(self, id: str):
+        return await self.__get_product_by_category_use_case.process(id)

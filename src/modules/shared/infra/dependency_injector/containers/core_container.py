@@ -12,10 +12,25 @@ from modules.authentication.domain.services.do_anonymous_authentication import (
 from modules.authentication.domain.services.do_authentication import (
     DoAuthenticationService,
 )
+from modules.categories.application.use_cases.get_category_by_id_use_case import (
+    GetCategoryByIdUseCase,
+)
+from modules.categories.domain.repositories.categories_repository import (
+    CategoryRepository,
+)
+from modules.categories.domain.services.get_category_by_id_service import (
+    GetCategoryByIdService,
+)
 from modules.products.application.use_cases.create_product import CreateProductUseCase
 from modules.products.application.use_cases.get_product import GetProductUseCase
+from modules.products.application.use_cases.get_product_by_category import (
+    GetProductByCategoryUseCase,
+)
 from modules.products.domain.repositories.product_repository import ProductRepository
 from modules.products.domain.services.add_product_service import AddProductService
+from modules.products.domain.services.get_product_by_category_service import (
+    GetProductByCategoryService,
+)
 from modules.products.domain.services.get_product_service import GetProductService
 from modules.user.domain.repositories.user_repository import UserRepository
 from modules.user.domain.services.get_user_by_email_and_password import (
@@ -44,11 +59,13 @@ class CoreContainer(DeclarativeContainer):
         UserRepository,
         database=mongo_database,
     )
-
-    # DOMAIN SERVICES
-    get_user_by_email_and_password_service = providers.Factory(
-        GetUserByEmailAndPasswordService,
-        user_repository=user_repository,
+    product_repository = providers.Singleton(
+        ProductRepository,
+        database=mongo_database,
+    )
+    category_repository = providers.Singleton(
+        CategoryRepository,
+        database=mongo_database,
     )
 
     # INFRA SERVICES
@@ -60,7 +77,17 @@ class CoreContainer(DeclarativeContainer):
         algorithm_no_auth=config.NO_AUTH_ALGORITHM,
     )
 
-    # DOMAIN SERVICES
+    # USER =====================================================================
+
+    # USER - SERVICES
+    get_user_by_email_and_password_service = providers.Factory(
+        GetUserByEmailAndPasswordService,
+        user_repository=user_repository,
+    )
+
+    # AUTHENTICATION ===========================================================
+
+    # AUTHENTICATION - SERVICES
     do_authentication_anonymous_service = providers.Singleton(
         DoAnonymousAuthenticationService, jwt_service=jwt_service
     )
@@ -70,30 +97,55 @@ class CoreContainer(DeclarativeContainer):
         get_user_by_email_and_password_service=get_user_by_email_and_password_service,
     )
 
-    # USE CASES
+    # AUTHENTICATION - USE CASES
     authenticate_use_case = providers.Singleton(
         AuthenticateUseCase,
         do_anonymous_authentication_service=do_authentication_anonymous_service,
         do_authentication_service=do_authentication_service,
     )
 
-    product_repository = providers.Singleton(
-        ProductRepository,
-        database=mongo_database,
+    # CATEGORIES =================================================================
+
+    # CATEGORIES SERVICES
+    get_category_by_id_service = providers.Singleton(
+        GetCategoryByIdService,
+        category_repository=category_repository,
     )
+
+    # CATEGORIES - USE CASES
+    get_category_by_id_use_case = providers.Singleton(
+        GetCategoryByIdUseCase,
+        get_category_by_id_service=get_category_by_id_service,
+    )
+
+    # PRODUCTS =================================================================
+
+    # PRODUCTS SERVICES
     add_product_service = providers.Singleton(
         AddProductService,
         product_repository=product_repository,
     )
-    create_product_use_case = providers.Singleton(
-        CreateProductUseCase,
-        add_product_service=add_product_service,
-    )
+
     get_product_service = providers.Singleton(
         GetProductService,
         product_repository=product_repository,
     )
+    get_product_by_category_service = providers.Singleton(
+        GetProductByCategoryService,
+        product_repository=product_repository,
+    )
+
+    # PRODUCTS - USE CASES
     get_product_use_case = providers.Singleton(
         GetProductUseCase,
         get_product_service=get_product_service,
+    )
+    get_product_by_category_use_case = providers.Singleton(
+        GetProductByCategoryUseCase,
+        get_product_by_category_service=get_product_by_category_service,
+    )
+    create_product_use_case = providers.Singleton(
+        CreateProductUseCase,
+        add_product_service=add_product_service,
+        get_category_by_id_use_case=get_category_by_id_use_case,
     )
