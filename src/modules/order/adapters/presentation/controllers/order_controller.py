@@ -50,5 +50,4 @@ class OrderController(APIController):
         #     },
         # )
 
-        print(current_user)
         return await self.__create_new_order_use_case.process(current_user.id, order_request)

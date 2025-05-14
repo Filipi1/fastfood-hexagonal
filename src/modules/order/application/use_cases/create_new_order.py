@@ -10,7 +10,4 @@ class CreateNewOrderUseCase(UseCase):
         self.__create_order_service = create_order_service
 
     async def process(self, user_id: str, order_request: List[RequestOrder]) -> OrderEntity:
-        print(user_id)
-        print(order_request)
-
         return await self.__create_order_service.execute(user_id, order_request)
