@@ -1,6 +1,7 @@
 from typing import List
 from modules.order.application.dtos.request_order import RequestOrder
 from modules.order.domain.entities.order_entity import OrderEntity, OrderProduct
+from modules.order.domain.enums.order_status import OrderStatus
 from modules.order.domain.repositories.order_repository import OrderRepository
 from modules.products.domain.services.get_all_products_by_codes import GetAllProductsByCodesService
 from modules.shared.domain.interfaces.domain_service import DomainService
@@ -18,7 +19,7 @@ class CreateOrderService(DomainService):
         order = OrderEntity(
             user_id=user_id,
             products=products_order,
-            status="waiting_payment"
+            status=OrderStatus.WAITING_PAYMENT
         )
         return await self.order_repository.create_order(order)
 

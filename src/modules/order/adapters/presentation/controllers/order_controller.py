@@ -3,7 +3,6 @@ from typing import List
 
 from fastapi import Depends
 from modules.authentication.adapters.presentation.dependencies import decode_auth_token
-from modules.order.application.dtos.request_completion import RequestOrderCompletion
 from modules.order.application.dtos.request_order import RequestOrder
 from modules.shared.adapters.presentation.decorators import (
     FastAPIManager,
@@ -18,6 +17,7 @@ from modules.user.domain.entities import User
 class OrderController(APIController):
     def __init__(self):
         self.__create_new_order_use_case = CoreContainer.create_new_order_use_case()
+        self.__complete_order_use_case = CoreContainer.complete_order_use_case()
         super().__init__()
 
     @FastAPIManager.route(
@@ -25,14 +25,8 @@ class OrderController(APIController):
         method=HTTPMethod.POST,
         dependencies=[Depends(decode_auth_token)],
     )
-    async def complete(self, id: str):
-        return {
-            "message": "Pagamento confirmado com sucesso",
-            "data": {
-                "order_id": id,
-                "ticket": "S100",
-            },
-        }
+    async def complete(self, id: str, current_user: User = Depends(decode_auth_token)):
+        return await self.__complete_order_use_case.process(current_user.id, id)
 
     @FastAPIManager.route("/submit", method=HTTPMethod.POST)
     async def submit(self, order_request: List[RequestOrder], current_user: User = Depends(decode_auth_token)):
@@ -49,5 +43,4 @@ class OrderController(APIController):
         #         },
         #     },
         # )
-
         return await self.__create_new_order_use_case.process(current_user.id, order_request)

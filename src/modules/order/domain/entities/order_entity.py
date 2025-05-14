@@ -1,10 +1,11 @@
 from datetime import datetime
-from typing import Dict, List, Literal, Optional
+from typing import Dict, List, Optional
 from gomongo.ports import GoEntity
-from pydantic import Field, field_validator, model_validator
+from pydantic import Field, model_validator
 from gomongo.decorators import GoCollection
 from pydantic import BaseModel
 
+from modules.order.domain.enums.order_status import OrderStatus
 from modules.products.domain.entities.product_entity import ProductEntity
 
 class OrderProduct(BaseModel):
@@ -38,7 +39,7 @@ class OrderProduct(BaseModel):
 
 @GoCollection("orders")
 class OrderEntity(GoEntity):
-    status: Literal["waiting_payment", "paid", "cancelled"]
+    status: OrderStatus
     user_id: str
     products: list[OrderProduct]
     total_price: float = Field(default=0)

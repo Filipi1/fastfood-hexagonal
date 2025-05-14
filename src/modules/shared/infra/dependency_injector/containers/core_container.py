@@ -21,8 +21,10 @@ from modules.categories.domain.repositories.categories_repository import (
 from modules.categories.domain.services.get_category_by_id_service import (
     GetCategoryByIdService,
 )
+from modules.order.application.use_cases.complete_order import CompleteOrderUseCase
 from modules.order.application.use_cases.create_new_order import CreateNewOrderUseCase
 from modules.order.domain.repositories.order_repository import OrderRepository
+from modules.order.domain.services.complete_order import CompleteOrderService
 from modules.order.domain.services.create_order import CreateOrderService
 from modules.products.application.use_cases.create_product import CreateProductUseCase
 from modules.products.application.use_cases.get_product import GetProductUseCase
@@ -170,9 +172,18 @@ class CoreContainer(DeclarativeContainer):
         order_repository=order_repository,
         get_all_products_by_codes_service=get_all_products_by_codes_service,
     )
+    complete_order_service = providers.Singleton(
+        CompleteOrderService,
+        order_repository=order_repository,
+    )
 
     # ORDER - USE CASES
     create_new_order_use_case = providers.Singleton(
         CreateNewOrderUseCase,
         create_order_service=create_order_service,
     )
+    complete_order_use_case = providers.Singleton(
+        CompleteOrderUseCase,
+        complete_order_service=complete_order_service,
+    )
+
