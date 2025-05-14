@@ -21,6 +21,9 @@ from modules.categories.domain.repositories.categories_repository import (
 from modules.categories.domain.services.get_category_by_id_service import (
     GetCategoryByIdService,
 )
+from modules.order.application.use_cases.create_new_order import CreateNewOrderUseCase
+from modules.order.domain.repositories.order_repository import OrderRepository
+from modules.order.domain.services.create_order import CreateOrderService
 from modules.products.application.use_cases.create_product import CreateProductUseCase
 from modules.products.application.use_cases.get_product import GetProductUseCase
 from modules.products.application.use_cases.get_product_by_category import (
@@ -28,6 +31,7 @@ from modules.products.application.use_cases.get_product_by_category import (
 )
 from modules.products.domain.repositories.product_repository import ProductRepository
 from modules.products.domain.services.add_product_service import AddProductService
+from modules.products.domain.services.get_all_products_by_codes import GetAllProductsByCodesService
 from modules.products.domain.services.get_product_by_category_service import (
     GetProductByCategoryService,
 )
@@ -65,6 +69,10 @@ class CoreContainer(DeclarativeContainer):
     )
     category_repository = providers.Singleton(
         CategoryRepository,
+        database=mongo_database,
+    )
+    order_repository = providers.Singleton(
+        OrderRepository,
         database=mongo_database,
     )
 
@@ -134,6 +142,10 @@ class CoreContainer(DeclarativeContainer):
         GetProductByCategoryService,
         product_repository=product_repository,
     )
+    get_all_products_by_codes_service = providers.Singleton(
+        GetAllProductsByCodesService,
+        product_repository=product_repository,
+    )
 
     # PRODUCTS - USE CASES
     get_product_use_case = providers.Singleton(
@@ -148,4 +160,19 @@ class CoreContainer(DeclarativeContainer):
         CreateProductUseCase,
         add_product_service=add_product_service,
         get_category_by_id_use_case=get_category_by_id_use_case,
+    )
+
+    # ORDER ====================================================================
+
+    # ORDER SERVICES
+    create_order_service = providers.Singleton(
+        CreateOrderService,
+        order_repository=order_repository,
+        get_all_products_by_codes_service=get_all_products_by_codes_service,
+    )
+
+    # ORDER - USE CASES
+    create_new_order_use_case = providers.Singleton(
+        CreateNewOrderUseCase,
+        create_order_service=create_order_service,
     )

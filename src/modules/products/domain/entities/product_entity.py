@@ -2,10 +2,11 @@ from datetime import datetime
 from typing import Dict, List, Optional
 from gomongo.ports import GoEntity
 from pydantic import Field
-from gomongo.decorators import GoCollection
+from gomongo.decorators import GoCollection, GoRegisterRelationId
 
 
 @GoCollection("products")
+@GoRegisterRelationId("category_id")
 class ProductEntity(GoEntity):
     code: str
     name: str

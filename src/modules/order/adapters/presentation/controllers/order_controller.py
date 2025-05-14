@@ -1,20 +1,23 @@
 from http import HTTPMethod
-import uuid
+from typing import List
 
 from fastapi import Depends
 from modules.authentication.adapters.presentation.dependencies import decode_auth_token
 from modules.order.application.dtos.request_completion import RequestOrderCompletion
+from modules.order.application.dtos.request_order import RequestOrder
 from modules.shared.adapters.presentation.decorators import (
     FastAPIManager,
     ControllerOptions,
     APIController,
 )
+from modules.shared.infra.dependency_injector.containers.core_container import CoreContainer
 from modules.user.domain.entities import User
 
 
 @FastAPIManager.controller("order", ControllerOptions(tags="Order"))
 class OrderController(APIController):
     def __init__(self):
+        self.__create_new_order_use_case = CoreContainer.create_new_order_use_case()
         super().__init__()
 
     @FastAPIManager.route(
@@ -22,25 +25,17 @@ class OrderController(APIController):
         method=HTTPMethod.POST,
         dependencies=[Depends(decode_auth_token)],
     )
-    async def complete(self, id: str, request_payment: RequestOrderCompletion):
+    async def complete(self, id: str):
         return {
             "message": "Pagamento confirmado com sucesso",
             "data": {
                 "order_id": id,
-                "ticket": "S101",
+                "ticket": "S100",
             },
         }
 
     @FastAPIManager.route("/submit", method=HTTPMethod.POST)
-    async def submit(self, current_user: User = Depends(decode_auth_token)):
-        # raise HTTPException(
-        #     status_code=400,
-        #     detail={
-        #         "message": "Já existe um pedido em andamento",
-        #         "data": {"status": "order_in_progress", "id": str(uuid.uuid4())},
-        #     },
-        # )
-
+    async def submit(self, order_request: List[RequestOrder], current_user: User = Depends(decode_auth_token)):
         # raise HTTPException(
         #     status_code=400,
         #     detail={
@@ -55,36 +50,5 @@ class OrderController(APIController):
         #     },
         # )
 
-        return {
-            "message": "Carrinho confirmado com sucesso",
-            "data": {
-                "id": uuid.uuid4(),
-                "status": "waiting_payment",
-                "resume": {
-                    "total_items": 2,
-                    "total_price": 100.00,
-                    "total_discount": 10.00,
-                    "total_price_with_discount": 90.00,
-                    "items": [
-                        {
-                            "id": "C1012",
-                            "name": "Produto 1",
-                            "price": 50.00,
-                            "quantity": 1,
-                            "total_price": 50.00,
-                            "total_discount": 5.00,
-                            "total_price_with_discount": 45.00,
-                        },
-                        {
-                            "id": "C1013",
-                            "name": "Produto 2",
-                            "price": 50.00,
-                            "quantity": 1,
-                            "total_price": 50.00,
-                            "total_discount": 5.00,
-                            "total_price_with_discount": 45.00,
-                        },
-                    ],
-                },
-            },
-        }
+        print(current_user)
+        return await self.__create_new_order_use_case.process(current_user.id, order_request)
