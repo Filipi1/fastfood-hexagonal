@@ -25,8 +25,7 @@ dev = [
 ]
 
 [tool.taskipy.tasks]
-lint = "ruff check src"
-fix = "ruff check src --fix && black src"
+lint = "ruff check src --fix && black src"
 typecheck = "pyright src"
 run_dev = "fastapi dev src/main.py"
 

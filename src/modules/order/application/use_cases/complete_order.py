@@ -9,4 +9,3 @@ class CompleteOrderUseCase(UseCase):
 
     async def process(self, user_id: str, order_id: str) -> OrderEntity:
         return await self.__complete_order_service.execute(user_id, order_id)
-

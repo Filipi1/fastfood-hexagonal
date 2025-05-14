@@ -9,7 +9,9 @@ from modules.shared.adapters.presentation.decorators import (
     ControllerOptions,
     APIController,
 )
-from modules.shared.infra.dependency_injector.containers.core_container import CoreContainer
+from modules.shared.infra.dependency_injector.containers.core_container import (
+    CoreContainer,
+)
 from modules.user.domain.entities import User
 
 
@@ -29,7 +31,11 @@ class OrderController(APIController):
         return await self.__complete_order_use_case.process(current_user.id, id)
 
     @FastAPIManager.route("/submit", method=HTTPMethod.POST)
-    async def submit(self, order_request: List[RequestOrder], current_user: User = Depends(decode_auth_token)):
+    async def submit(
+        self,
+        order_request: List[RequestOrder],
+        current_user: User = Depends(decode_auth_token),
+    ):
         # raise HTTPException(
         #     status_code=400,
         #     detail={
@@ -43,4 +49,6 @@ class OrderController(APIController):
         #         },
         #     },
         # )
-        return await self.__create_new_order_use_case.process(current_user.id, order_request)
+        return await self.__create_new_order_use_case.process(
+            current_user.id, order_request
+        )

@@ -33,7 +33,9 @@ from modules.products.application.use_cases.get_product_by_category import (
 )
 from modules.products.domain.repositories.product_repository import ProductRepository
 from modules.products.domain.services.add_product_service import AddProductService
-from modules.products.domain.services.get_all_products_by_codes import GetAllProductsByCodesService
+from modules.products.domain.services.get_all_products_by_codes import (
+    GetAllProductsByCodesService,
+)
 from modules.products.domain.services.get_product_by_category_service import (
     GetProductByCategoryService,
 )
@@ -186,4 +188,3 @@ class CoreContainer(DeclarativeContainer):
         CompleteOrderUseCase,
         complete_order_service=complete_order_service,
     )
-

@@ -16,7 +16,7 @@ class AddProductService(DomainService):
         )
         if product_by_code:
             raise ValueError("Product already exists")
-        
+
         added_product = await self.product_repository.add_product(product)
         if not added_product:
             raise ValueError("Failed to add product")

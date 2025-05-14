@@ -18,8 +18,7 @@ class CompleteOrderService(DomainService):
 
         if order.status != OrderStatus.WAITING_PAYMENT:
             raise ValueError("Order is not waiting for payment")
-        
+
         order.status = OrderStatus.PAID
         await self.__order_repository.update_order_status(order_id, order.status)
         return order
-

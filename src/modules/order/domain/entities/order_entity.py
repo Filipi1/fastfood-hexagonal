@@ -8,6 +8,7 @@ from pydantic import BaseModel
 from modules.order.domain.enums.order_status import OrderStatus
 from modules.products.domain.entities.product_entity import ProductEntity
 
+
 class OrderProduct(BaseModel):
     name: str
     price: float
@@ -18,7 +19,7 @@ class OrderProduct(BaseModel):
 
     def get_total_price(self) -> float:
         return self.total_price
-    
+
     def get_total_discount(self) -> float:
         return self.total_discount
 
@@ -37,6 +38,7 @@ class OrderProduct(BaseModel):
             total_discount=product.discount,
         )
 
+
 @GoCollection("orders")
 class OrderEntity(GoEntity):
     status: OrderStatus
@@ -48,9 +50,8 @@ class OrderEntity(GoEntity):
     created_at: Optional[datetime] = Field(default_factory=datetime.now)
     updated_at: Optional[List[Dict]] = Field(default=[])
 
-
-    @model_validator(mode='after')
-    def compute_total_price(self) -> 'OrderEntity':
+    @model_validator(mode="after")
+    def compute_total_price(self) -> "OrderEntity":
         self.total_price = sum(p.price for p in self.products)
         self.total_products = len(self.products)
         return self
