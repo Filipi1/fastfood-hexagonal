@@ -28,7 +28,7 @@ class OrderController(APIController):
         dependencies=[Depends(decode_auth_token)],
     )
     async def complete(self, id: str, current_user: User = Depends(decode_auth_token)):
-        return await self.__complete_order_use_case.process(current_user.id, id)
+        return await self.__complete_order_use_case.process(current_user.id, current_user.session_id, id)
 
     @FastAPIManager.route("/submit", method=HTTPMethod.POST)
     async def submit(
@@ -50,5 +50,5 @@ class OrderController(APIController):
         #     },
         # )
         return await self.__create_new_order_use_case.process(
-            current_user.id, order_request
+            current_user.id, current_user.session_id, order_request
         )

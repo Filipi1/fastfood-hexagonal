@@ -5,6 +5,7 @@ from gomongo.decorators import GoCollection
 
 @GoCollection("users")
 class User(GoEntity):
+    session_id: Optional[str] = None
     name: str
     document: Optional[str] = None
     email: Optional[str] = None
