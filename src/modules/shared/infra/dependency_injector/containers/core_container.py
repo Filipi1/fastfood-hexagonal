@@ -40,9 +40,11 @@ from modules.products.domain.services.get_product_by_category_service import (
     GetProductByCategoryService,
 )
 from modules.products.domain.services.get_product_service import GetProductService
+from modules.user.application.use_cases.create_user_use_case import CreateUserUseCase
 from modules.user.domain.repositories.user_repository import UserRepository
+from modules.user.domain.services.create_user_service import CreateUserService
 from modules.user.domain.services.get_user_by_email_and_password import (
-    GetUserByEmailAndPasswordService,
+    GetUserByEmailService,
 )
 
 
@@ -92,10 +94,21 @@ class CoreContainer(DeclarativeContainer):
     # USER =====================================================================
 
     # USER - SERVICES
-    get_user_by_email_and_password_service = providers.Factory(
-        GetUserByEmailAndPasswordService,
+    get_user_by_email_service = providers.Factory(
+        GetUserByEmailService,
         user_repository=user_repository,
     )
+    create_user_service = providers.Factory(
+        CreateUserService,
+        user_repository=user_repository,
+    )
+
+    # USER - USE CASES
+    create_user_use_case = providers.Factory(
+        CreateUserUseCase,
+        create_user_service=create_user_service,
+    )
+
 
     # AUTHENTICATION ===========================================================
 
@@ -106,7 +119,7 @@ class CoreContainer(DeclarativeContainer):
     do_authentication_service = providers.Singleton(
         DoAuthenticationService,
         jwt_service=jwt_service,
-        get_user_by_email_and_password_service=get_user_by_email_and_password_service,
+        get_user_by_email_service=get_user_by_email_service,
     )
 
     # AUTHENTICATION - USE CASES

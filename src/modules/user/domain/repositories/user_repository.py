@@ -1,8 +1,7 @@
 from typing import Optional
 from gomongo import GoDatabase
 from gomongo.adapters import GoRepository
-
-from modules.user.domain.entities import User
+from modules.user.domain.entities.user import User
 
 
 class UserRepository(GoRepository[User]):
@@ -18,3 +17,9 @@ class UserRepository(GoRepository[User]):
     ) -> Optional[User]:
         user = await self.find_one({"email": email, "password": password})
         return user
+
+    async def get_user_by_email(self, email: str) -> Optional[User]:
+        return await self.find_one({"email": email})
+
+    async def create_user(self, user: User) -> User:
+        return await self.insert_one(user)

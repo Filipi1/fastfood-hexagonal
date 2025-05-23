@@ -26,14 +26,14 @@ class JWTService:
     def encode(self, data: dict) -> str:
         data_to_encode = data.copy()
         data_to_encode.update({"session_id": self.generate_session_id()})
-        expiration_date = DateHelper.create_expiration_date(timedelta(minutes=5))
+        expiration_date = DateHelper.create_expiration_date(timedelta(minutes=15))
         data_to_encode.update({"exp": int(expiration_date.timestamp())})
         return jwt.encode(data_to_encode, self.__secret_key, algorithm=self.__algorithm)
 
     def encode_no_auth(self, data: dict) -> str:
         data_to_encode = data.copy()
         data_to_encode.update({"session_id": self.generate_session_id()})
-        expiration_date = DateHelper.create_expiration_date(timedelta(minutes=5))
+        expiration_date = DateHelper.create_expiration_date(timedelta(minutes=15))
         data_to_encode.update(
             {"exp": int(expiration_date.timestamp()), "etype": "no_auth"}
         )
