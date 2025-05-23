@@ -31,7 +31,8 @@ class CreateOrderService(DomainService):
             OrderProduct.from_product(product, request.quantity)
             for product, request in zip(products, order_request)
         ]
-        await self.order_repository.abandon_all_active_orders_for_user(user_id)
+        if user_id:
+            await self.order_repository.abandon_all_active_orders_for_user(user_id)
         order = OrderEntity(
             user_id=user_id,
             session_id=session_id,

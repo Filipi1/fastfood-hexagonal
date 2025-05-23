@@ -26,7 +26,9 @@ class OrderProduct(BaseModel):
     @model_validator(mode="before")
     def calculate_prices(cls, data):
         data["total_price"] = round(float(data["price"] * data["quantity"]), 2)
-        data["total_price_with_discount"] = round(float(data["total_price"] - data["total_discount"]), 2)
+        data["total_price_with_discount"] = round(
+            float(data["total_price"] - data["total_discount"]), 2
+        )
         return data
 
     @staticmethod
@@ -58,5 +60,5 @@ class OrderEntity(GoEntity):
 
         if not self.session_id and not self.user_id:
             raise ValueError("Session or user ID is required")
-        
+
         return self

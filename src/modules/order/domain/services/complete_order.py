@@ -9,7 +9,9 @@ class CompleteOrderService(DomainService):
     def __init__(self, order_repository: OrderRepository):
         self.__order_repository = order_repository
 
-    async def execute(self, user_id: Optional[str], session_id: Optional[str], order_id: str) -> OrderEntity:
+    async def execute(
+        self, user_id: Optional[str], session_id: Optional[str], order_id: str
+    ) -> OrderEntity:
         order = await self.__order_repository.get_order_by_id(order_id)
         if order is None:
             raise ValueError("Order not found")

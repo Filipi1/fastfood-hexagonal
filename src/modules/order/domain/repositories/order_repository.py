@@ -1,3 +1,4 @@
+from typing import Optional
 from gomongo import GoDatabase
 from modules.order.domain.entities.order_entity import OrderEntity
 from gomongo.adapters import GoRepository
@@ -10,10 +11,10 @@ class OrderRepository(GoRepository[OrderEntity]):
     def __init__(self, database: GoDatabase):
         super().__init__(OrderEntity, database)
 
-    async def get_order_by_id(self, id: str) -> OrderEntity:
+    async def get_order_by_id(self, id: str) -> Optional[OrderEntity]:
         return await self.find_one({"_id": id})
 
-    async def get_user_current_order(self, user_id: str) -> OrderEntity:
+    async def get_user_current_order(self, user_id: str) -> Optional[OrderEntity]:
         return await self.find_one(
             {"user_id": user_id, "status": GoIn([OrderStatus.WAITING_PAYMENT])}
         )

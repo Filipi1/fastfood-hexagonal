@@ -19,7 +19,7 @@ dependencies = [
 [dependency-groups]
 dev = [
     "black>=25.1.0",
-    "pyright>=1.1.399",
+    "pyright>=1.1.401",
     "ruff>=0.11.5",
     "taskipy>=1.14.1",
 ]

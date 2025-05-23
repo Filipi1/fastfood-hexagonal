@@ -8,5 +8,9 @@ class CompleteOrderUseCase(UseCase):
     def __init__(self, complete_order_service: CompleteOrderService):
         self.__complete_order_service = complete_order_service
 
-    async def process(self, user_id: Optional[str], session_id: Optional[str], order_id: str) -> OrderEntity:
-        return await self.__complete_order_service.execute(user_id, session_id, order_id)
+    async def process(
+        self, user_id: Optional[str], session_id: Optional[str], order_id: str
+    ) -> OrderEntity:
+        return await self.__complete_order_service.execute(
+            user_id, session_id, order_id
+        )
