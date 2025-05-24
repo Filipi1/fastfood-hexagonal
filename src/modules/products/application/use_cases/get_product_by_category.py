@@ -3,7 +3,7 @@ from modules.products.domain.entities.product_entity import ProductEntity
 from modules.products.domain.services.get_product_by_category_service import (
     GetProductByCategoryService,
 )
-from modules.shared.domain.interfaces import UseCase
+from modules.shared.interfaces import UseCase
 
 
 class GetProductByCategoryUseCase(UseCase):

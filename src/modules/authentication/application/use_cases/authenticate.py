@@ -4,7 +4,7 @@ from modules.authentication.domain.services import (
     DoAnonymousAuthenticationService,
     DoAuthenticationService,
 )
-from modules.shared.domain.interfaces import UseCase
+from modules.shared.interfaces import UseCase
 
 
 class AuthenticateUseCase(UseCase):

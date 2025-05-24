@@ -4,7 +4,7 @@ import uuid
 
 
 from jose import JWTError, jwt, ExpiredSignatureError
-from modules.shared.application.helpers.date_helper import DateHelper
+from modules.shared.helpers.date_helper import DateHelper
 
 
 class JWTService:

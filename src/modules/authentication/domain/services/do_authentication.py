@@ -2,7 +2,7 @@ from typing import Optional
 from modules.authentication.application.dtos import RequestLogin
 from modules.authentication.adapters.security.jwt.jwt_service import JWTService
 from modules.authentication.application.dtos.auth_token_data import AuthTokenData
-from modules.shared.domain.interfaces import DomainService
+from modules.shared.interfaces import DomainService
 from modules.shared.utils.encrypter.encrypter import Encrypter
 from modules.user.domain.services.get_user_by_email_and_password import (
     GetUserByEmailService,

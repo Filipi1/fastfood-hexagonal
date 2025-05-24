@@ -6,7 +6,7 @@ from modules.order.domain.repositories.order_repository import OrderRepository
 from modules.products.domain.services.get_all_products_by_codes import (
     GetAllProductsByCodesService,
 )
-from modules.shared.domain.interfaces.domain_service import DomainService
+from modules.shared.interfaces import DomainService
 
 
 class CreateOrderService(DomainService):

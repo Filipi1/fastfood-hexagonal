@@ -1,6 +1,6 @@
 from modules.products.domain.entities.product_entity import ProductEntity
 from modules.products.domain.services.get_product_service import GetProductService
-from modules.shared.domain.interfaces import UseCase
+from modules.shared.interfaces import UseCase
 
 
 class GetProductUseCase(UseCase):

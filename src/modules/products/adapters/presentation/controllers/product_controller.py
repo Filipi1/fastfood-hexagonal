@@ -3,7 +3,7 @@ from http import HTTPMethod
 from fastapi import Depends
 from modules.authentication.adapters.presentation.dependencies import decode_auth_token
 from modules.products.application.dtos.request_add_product import RequestAddProduct
-from modules.shared.adapters.presentation.decorators import (
+from modules.shared.decorators import (
     FastAPIManager,
     ControllerOptions,
     APIController,

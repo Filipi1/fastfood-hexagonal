@@ -2,7 +2,7 @@ from typing import Optional
 from modules.order.domain.entities.order_entity import OrderEntity
 from modules.order.domain.enums.order_status import OrderStatus
 from modules.order.domain.repositories.order_repository import OrderRepository
-from modules.shared.domain.interfaces.domain_service import DomainService
+from modules.shared.interfaces import DomainService
 
 
 class CompleteOrderService(DomainService):

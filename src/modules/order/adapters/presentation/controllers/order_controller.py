@@ -4,7 +4,7 @@ from typing import List
 from fastapi import Depends
 from modules.authentication.adapters.presentation.dependencies import decode_auth_token
 from modules.order.application.dtos.request_order import RequestOrder
-from modules.shared.adapters.presentation.decorators import (
+from modules.shared.decorators import (
     FastAPIManager,
     ControllerOptions,
     APIController,

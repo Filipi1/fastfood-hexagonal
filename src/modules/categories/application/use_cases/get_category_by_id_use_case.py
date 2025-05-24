@@ -3,7 +3,7 @@ from modules.categories.domain.entities.category_entity import CategoryEntity
 from modules.categories.domain.services.get_category_by_id_service import (
     GetCategoryByIdService,
 )
-from modules.shared.domain.interfaces import UseCase
+from modules.shared.interfaces import UseCase
 
 
 class GetCategoryByIdUseCase(UseCase):

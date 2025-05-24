@@ -1,5 +1,5 @@
 from http import HTTPMethod
-from modules.shared.adapters.presentation.decorators import (
+from modules.shared.decorators import (
     FastAPIManager,
     ControllerOptions,
     APIController,

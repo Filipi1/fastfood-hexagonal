@@ -1,7 +1,7 @@
 from modules.shared.utils.encrypter.encrypter import Encrypter
 from modules.user.domain.entities.user import User
 from modules.user.domain.repositories.user_repository import UserRepository
-from modules.shared.domain.interfaces.domain_service import DomainService
+from modules.shared.interfaces import DomainService
 
 class CreateUserService(DomainService):
     def __init__(self, user_repository: UserRepository):

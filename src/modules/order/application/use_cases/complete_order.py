@@ -1,7 +1,7 @@
 from typing import Optional
 from modules.order.domain.entities.order_entity import OrderEntity
 from modules.order.domain.services.complete_order import CompleteOrderService
-from modules.shared.domain.interfaces.application_service import UseCase
+from modules.shared.interfaces import UseCase
 
 
 class CompleteOrderUseCase(UseCase):

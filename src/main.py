@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 from fastapi import FastAPI
 
 from modules.shared.infra.dependency_injector.containers import CoreContainer
-from modules.shared.adapters.presentation.decorators import FastAPIManager
+from modules.shared.decorators import FastAPIManager
 
 load_dotenv(override=True)
 

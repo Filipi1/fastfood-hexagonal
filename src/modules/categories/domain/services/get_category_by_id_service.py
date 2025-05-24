@@ -3,7 +3,7 @@ from modules.categories.domain.entities.category_entity import CategoryEntity
 from modules.categories.domain.repositories.categories_repository import (
     CategoryRepository,
 )
-from modules.shared.domain.interfaces.domain_service import DomainService
+from modules.shared.interfaces import DomainService
 
 
 class GetCategoryByIdService(DomainService):

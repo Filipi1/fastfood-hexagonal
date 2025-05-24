@@ -1,7 +1,7 @@
 from modules.user.application.dtos.request_create_user import RequestCreateUser
 from modules.user.domain.entities.user import User
 from modules.user.domain.services.create_user_service import CreateUserService
-from modules.shared.domain.interfaces import UseCase
+from modules.shared.interfaces import UseCase
 
 
 class CreateUserUseCase(UseCase):

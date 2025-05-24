@@ -4,7 +4,7 @@ from modules.categories.application.use_cases.get_category_by_id_use_case import
 from modules.products.application.dtos.request_add_product import RequestAddProduct
 from modules.products.domain.entities.product_entity import ProductEntity
 from modules.products.domain.services.add_product_service import AddProductService
-from modules.shared.domain.interfaces import UseCase
+from modules.shared.interfaces import UseCase
 
 
 class CreateProductUseCase(UseCase):

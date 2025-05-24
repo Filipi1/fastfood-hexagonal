@@ -1,6 +1,6 @@
 from modules.products.domain.entities.product_entity import ProductEntity
 from modules.products.domain.repositories.product_repository import ProductRepository
-from modules.shared.domain.interfaces.domain_service import DomainService
+from modules.shared.interfaces import DomainService
 
 
 class GetAllProductsByCodesService(DomainService):

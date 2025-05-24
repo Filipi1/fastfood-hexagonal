@@ -2,7 +2,7 @@ from typing import Optional
 from modules.authentication.application.dtos import RequestAnonymousLogin
 from modules.authentication.adapters.security.jwt.jwt_service import JWTService
 from modules.authentication.domain.entities import Authentication
-from modules.shared.domain.interfaces import DomainService
+from modules.shared.interfaces import DomainService
 
 
 class DoAnonymousAuthenticationService(DomainService):
