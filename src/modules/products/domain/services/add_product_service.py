@@ -1,5 +1,9 @@
 from modules.products.domain.entities.product_entity import ProductEntity
 from modules.products.domain.repositories.product_repository import ProductRepository
+from modules.products.exceptions.product_already_exists_exception import (
+    ProductAlreadyExistsException,
+)
+from modules.products.exceptions.product_invalid import ProductInvalidException
 from modules.shared.interfaces import DomainService
 
 
@@ -9,13 +13,13 @@ class AddProductService(DomainService):
 
     async def execute(self, product: ProductEntity) -> ProductEntity:
         if not product.validate_product():
-            raise ValueError("Product is not valid")
+            raise ProductInvalidException()
 
         product_by_code = await self.product_repository.get_product_by_code(
             product.code
         )
         if product_by_code:
-            raise ValueError("Product already exists")
+            raise ProductAlreadyExistsException()
 
         added_product = await self.product_repository.add_product(product)
         if not added_product:

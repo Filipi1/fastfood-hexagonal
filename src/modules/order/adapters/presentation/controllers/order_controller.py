@@ -32,7 +32,10 @@ class OrderController(APIController):
             current_user.id, current_user.session_id, id
         )
 
-    @FastAPIManager.route("/submit", method=HTTPMethod.POST)
+    @FastAPIManager.route(
+        "/submit",
+        method=HTTPMethod.POST,
+    )
     async def submit(
         self,
         order_request: List[RequestOrder],

@@ -10,6 +10,10 @@ class ProductRepository(GoRepository[ProductEntity]):
     def __init__(self, database: GoDatabase):
         super().__init__(ProductEntity, database)
 
+    async def get_product_by_id(self, product_id: str) -> Optional[ProductEntity]:
+        product = await self.find_one({"_id": product_id})
+        return product
+
     async def get_product_by_code(self, code: str) -> Optional[ProductEntity]:
         product = await self.find_one({"code": code})
         return product

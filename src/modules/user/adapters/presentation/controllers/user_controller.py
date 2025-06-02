@@ -4,7 +4,9 @@ from modules.shared.decorators import (
     ControllerOptions,
     APIController,
 )
-from modules.shared.infra.dependency_injector.containers.core_container import CoreContainer
+from modules.shared.infra.dependency_injector.containers.core_container import (
+    CoreContainer,
+)
 from modules.user.application.dtos.request_create_user import RequestCreateUser
 
 

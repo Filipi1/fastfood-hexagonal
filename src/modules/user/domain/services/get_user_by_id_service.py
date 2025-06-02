@@ -1,5 +1,5 @@
 from typing import Optional
-from modules.shared.domain.interfaces.domain_service import DomainService
+from modules.shared.interfaces import DomainService
 from modules.user.domain.entities.user import User
 from modules.user.domain.repositories.user_repository import UserRepository
 

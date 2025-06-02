@@ -19,7 +19,7 @@ class User(GoEntity):
     @property
     def is_anonymous(self) -> bool:
         return self.id is None
-    
+
     def validate_user(self) -> bool:
         if not self.name or not self.email or not self.password:
             return False

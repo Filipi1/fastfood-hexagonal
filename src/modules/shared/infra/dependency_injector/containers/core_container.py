@@ -109,7 +109,6 @@ class CoreContainer(DeclarativeContainer):
         create_user_service=create_user_service,
     )
 
-
     # AUTHENTICATION ===========================================================
 
     # AUTHENTICATION - SERVICES

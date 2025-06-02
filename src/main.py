@@ -3,6 +3,11 @@ from fastapi import FastAPI
 
 from modules.shared.infra.dependency_injector.containers import CoreContainer
 from modules.shared.decorators import FastAPIManager
+from modules.shared.exceptions.handlers import (
+    application_exception_handler,
+    global_exception_handler,
+)
+from modules.shared.exceptions.application_exception import ApplicationException
 
 load_dotenv(override=True)
 
@@ -15,5 +20,8 @@ app = FastAPI(
     docs_url="/docs",
     prefix="/api",
 )
+
+app.add_exception_handler(ApplicationException, application_exception_handler)
+app.add_exception_handler(Exception, global_exception_handler)
 
 FastAPIManager.initialize(app)

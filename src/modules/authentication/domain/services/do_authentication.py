@@ -16,18 +16,14 @@ class DoAuthenticationService(DomainService):
         get_user_by_email_service: GetUserByEmailService,
     ) -> None:
         self.__jwt_service = jwt_service
-        self.__get_user_by_email_service = (
-            get_user_by_email_service
-        )
+        self.__get_user_by_email_service = get_user_by_email_service
         super().__init__()
 
     async def execute(self, request_login: RequestLogin) -> Optional[str]:
-        user = await self.__get_user_by_email_service.execute(
-            request_login.email
-        )
+        user = await self.__get_user_by_email_service.execute(request_login.email)
         if not user:
             raise ValueError("Usuário não encontrado")
-                
+
         if not Encrypter.verify(request_login.password, user.password):
             raise ValueError("Usuário ou senha inválidos")
 

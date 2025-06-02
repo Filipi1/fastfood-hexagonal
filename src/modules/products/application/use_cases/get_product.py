@@ -7,5 +7,5 @@ class GetProductUseCase(UseCase):
     def __init__(self, get_product_service: GetProductService):
         self.get_product_service = get_product_service
 
-    async def process(self, product_code: str) -> ProductEntity:
-        return await self.get_product_service.execute(product_code)
+    async def process(self, product_id: str) -> ProductEntity:
+        return await self.get_product_service.execute(product_id)
